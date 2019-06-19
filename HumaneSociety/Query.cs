@@ -200,7 +200,10 @@ namespace HumaneSociety
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
-            throw new NotImplementedException();
+            Animal animal = new Animal();
+            categoryName = animal.CategoryId.ToString();
+
+            return categoryName;
         }
         
         internal static Room GetRoom(int animalId)
