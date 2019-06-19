@@ -1,0 +1,66 @@
+Employees 5
+EmployeeId(int) PRIMARY KEY, FirstName(varchar), LastName(varchar), UserName(varchar), Password(varchar), EmployeeNumber (int), Email(varchar)
+INSERT INTO Employees VALUES('Steve', 'Brunelli', 'SBrunelli', 'OnePunchMan1!', 001, 'SBrunelli@gmail.com')
+INSERT INTO Employees VALUES('Nate', 'Poths', 'NPoths', 'BluesCupChamps2019', 002, 'NPoths@gmail.com')
+INSERT INTO Employees VALUES('Shee', 'Yee', 'SYee', 'Travel4Fishing', 003, 'SYee@gmail.com')
+INSERT INTO Employees VALUES('Nevin', 'Seibel', 'NSeibel', 'LoneFlamingo3', 004, 'NSeibel@gmail.com')
+INSERT INTO Employees VALUES('Mike', 'Heinish', 'MHeinish', 'Morecoffee4Me', 005, 'MHeinish@gmail.com')
+
+
+Categories 5
+CategoryId (1,1) PRIMARY KEY, Name (varchar)
+INSERT INTO Categories VALUES('Dog')
+INSERT INTO Categories VALUES('Cat')
+INSERT INTO Categories VALUES('Lizard')
+INSERT INTO Categories VALUES('Flamingo')
+INSERT INTO Categories VALUES('Red Panda')
+
+Diet Plans 5
+DietPlanId (1,1) PRIMARY KEY, Name (varchar), FoodType(varchar), FoodAmountInCups(int)
+INSERT INTO DietPlans VALUES('Standard', 'Dry Food', 3)
+INSERT INTO DietPlans VALUES('Weight Loss', 'Dry Food', 2)
+INSERT INTO DietPlans VALUES('Spoiled', 'Wet Food', 3)
+INSERT INTO DietPlans VALUES('Stray', 'Garbage', 1)
+INSERT INTO DietPlans VALUES('Combo', 'Dry and Wet Food', 3)
+
+Animals 5
+AnimalId(1,1) PRIMARY KEY, Name (varchar), Weight (int), Age (int), Demeanor(VARCHAR), KidFriendly BIT, PetFriendly BIT, Gender (varchar), AdoptionStatus(varchar), CategoryId INTEGER FOREIGN KEY REFERENCES Categories(CategoryId), DietPlanId INTEGER FOREIGN KEY REFERENCES DietPlans(DietPlanId), EmployeeId INTEGER FOREIGN KEY REFERENCES Employees(EmployeeId));
+INSERT INTO Animals VALUES('Andy', 25, 1, 'happy', 1, 1, 'male', 'adopted', NULL, NULL, NULL)
+UPDATE Animals
+SET CategoryId = 1
+FROM Categories
+WHERE Animals.Name = 'Andy'
+
+INSERT INTO Animals VALUES('Gilmore', 12, 7, 'stoic', 1, 1, 'male', 'adopted', 2, 3, NULL)
+INSERT INTO Animals VALUES('Concrete', 1, 1, 'happy', 1, 1, 'male', 'adopted', 3, 1, NULL)
+INSERT INTO Animals VALUES('Banana', 16, 1, 'curious', 1, 1, 'female', 'adopted', 4, 1, NULL)
+INSERT INTO Animals VALUES('Mr Whiskers', 5, 1, 'content', 1, 1, 'male', 'adopted', 5, 3, NULL)
+
+Rooms 10
+RoomId(1,1), PRIMARY KEY, RoomNumber(int), AnimalId INTEGER FOREIGN KEY REFERENCES Animals(AnimalId));
+INSERT INTO Rooms VALUES(10, 1)
+INSERT INTO Rooms VALUES(11, NULL)
+INSERT INTO Rooms VALUES(12, NULL)
+INSERT INTO Rooms VALUES(13, NULL)
+INSERT INTO Rooms VALUES(14, 2)
+INSERT INTO Rooms VALUES(15, 3)
+INSERT INTO Rooms VALUES(16, 4)
+INSERT INTO Rooms VALUES(17, NULL)
+INSERT INTO Rooms VALUES(18, NULL)
+INSERT INTO Rooms VALUES(19, 5)
+
+
+Clients 5
+ClientID(1,1) PRIMARY KEY, FirstName (varchar), LastName(varchar), UserName(varchar), Password(varchar), AddressId INTEGER FOREIGN KEY REFERENCES Addresses(AddressId), Email VARCHAR(50));
+
+INSERT INTO Addresses VALUES(null, null, null, null)
+INSERT INTO Addresses VALUES(null, null, null, null)
+INSERT INTO Addresses VALUES(null, null, null, null)
+INSERT INTO Addresses VALUES(null, null, null, null)
+INSERT INTO Addresses VALUES(null, null, null, null)
+
+INSERT INTO Clients VALUES('John', 'Wick', 'BabaYega4U', 'Andy4Ever', 1, 'J_Wick@gmail.com')
+INSERT INTO Clients VALUES('Ryan', 'Schultz', 'RSchultz', 'Gilmore1!', 2, 'RSchultz@gmail.com')
+INSERT INTO Clients VALUES('Jacob', 'Holmes', 'JHolmes', 'MayFever', 3, 'JHolmes@gmail.com')
+INSERT INTO Clients VALUES('Karissa', 'Koss', 'KKoss', 'DerptyDer', 4, 'KKoss@gmail.com')
+INSERT INTO Clients VALUES('Alyssa', 'Brunelli', 'ABrunelli', 'IloveBlue4', 5, 'ABrunelli@gmail.com')
