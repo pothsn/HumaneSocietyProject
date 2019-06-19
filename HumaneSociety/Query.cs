@@ -192,28 +192,36 @@ namespace HumaneSociety
         }
         
         // TODO: Animal Multi-Trait Search
-        internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
+        internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> searchParameters) // parameter(s)?
         {
-            throw new NotImplementedException();
+            var animals = db.Animals;
+
+            foreach (KeyValuePair<int, string> updates in searchParameters)
+            {
+                updates.Key
+                    //INCOMPLETE. MIKE H SAYS THIS IS THE HARDEST ONE. LEAVE FOR LAST.
+            }
+
+            return animals;
         }
          
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
-            Animal animal = new Animal();
-            categoryName = animal.CategoryId.ToString();
-
-            return categoryName;
+            Category category = db.Categories.Where(c => c.Name == categoryName).FirstOrDefault();
+            return category.CategoryId;
         }
         
         internal static Room GetRoom(int animalId)
         {
-            throw new NotImplementedException();
+            Room room = db.Rooms.Where(a => a.AnimalId == animalId).FirstOrDefault();
+            return room;
         }
         
         internal static int GetDietPlanId(string dietPlanName)
         {
-            throw new NotImplementedException();
+            DietPlan dietPlans = db.DietPlans.Where(d => d.Name == dietPlanName).FirstOrDefault();
+            return dietPlans.DietPlanId;
         }
 
         // TODO: Adoption CRUD Operations
