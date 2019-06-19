@@ -8,11 +8,14 @@ namespace HumaneSociety
 {
     public static class Query
     {        
-        static HumaneSocietyDataContext db;
+        public static HumaneSocietyDataContext db;
 
+        public static Employee employee;
         static Query()
         {
             db = new HumaneSocietyDataContext();
+
+            employee = new Employee();
         }
 
         internal static List<USState> GetStates()
@@ -48,7 +51,7 @@ namespace HumaneSociety
 
             Address addressFromDb = db.Addresses.Where(a => a.AddressLine1 == streetAddress && a.Zipcode == zipCode && a.USStateId == stateId).FirstOrDefault();
 
-            // if the address isn't found in the Db, create and insert it
+           
             if (addressFromDb == null)
             {
                 Address newAddress = new Address();
@@ -162,14 +165,89 @@ namespace HumaneSociety
 
 
         //// TODO Items: ////
-        
-        // TODO: Allow any of the CRUD operations to occur here
+
+        // TODO: Allow any of the CRUD operations to occur here --------------------------------------------------------------------------
+
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
-            throw new NotImplementedException();
+            switch (crudOperation)
+            {
+                case "create":
+                    CreateNewEmployeeQueries(employee);
+                    break;
+                case "read":
+                    ReadNewEmployeeQueries(employee);
+                    break;
+                case "update":
+                    UpdateNewEmployeeQueries(employee);
+                    break;
+                case "delete":
+                    DeleteNewEmployeeQueries(employee);
+                    break;
+                default:
+                    UserInterface.DisplayUserOptions("Input not accepted please try again");
+                    break;
+            }
+        }
+        internal static void CreateNewEmployeeQueries(Employee employee)
+        {
+            bool employeeExists = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Any();
+
+            if (!employeeExists)
+            {
+                db.Employees.InsertOnSubmit(employee);
+                db.SubmitChanges();
+            }
         }
 
-        internal static void AddAnimal(Animal animal)
+        internal static void ReadNewEmployeeQueries(Employee employee)
+        {
+            Employee readEmployee = db.Employees.Where(e => e.FirstName == employee.FirstName && e.LastName == employee.LastName && e.UserName == employee.UserName && e.Email == employee.Email).FirstOrDefault();
+            if (readEmployee != null)
+            {
+                readEmployee.FirstName = employee.FirstName;
+                readEmployee.LastName = employee.LastName;
+                readEmployee.UserName = employee.UserName;
+                readEmployee.Email = employee.Email;
+
+                Console.WriteLine("First Name: " + readEmployee.FirstName);
+                Console.WriteLine("Last Name: " + readEmployee.LastName);
+                Console.WriteLine("Username: " + readEmployee.UserName);
+                Console.WriteLine("Email: " + readEmployee.Email);
+            }
+        }
+        internal static void UpdateNewEmployeeQueries(Employee employee)
+        {
+            Employee updateEmployee = db.Employees.Where(e => e.FirstName == employee.FirstName && e.LastName == employee.LastName && e.UserName == employee.UserName && e.Password == employee.Password && e.Email == employee.Email).FirstOrDefault();
+            // update newEmployee information 
+            // if the new employee isn't found in the Db, create and insert it
+            if (updateEmployee != null)
+            {
+                updateEmployee.FirstName = employee.FirstName;
+                updateEmployee.LastName = employee.LastName;
+                updateEmployee.UserName = employee.UserName;
+                updateEmployee.Password = employee.Password;
+                updateEmployee.Email = employee.Email;
+
+                db.Employees.InsertOnSubmit(employee);
+                db.SubmitChanges();
+            }
+        }
+        internal static void DeleteNewEmployeeQueries(Employee employee)
+        {
+            Employee deleteEmployee = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
+            if (deleteEmployee != null)
+            {
+                deleteEmployee.EmployeeId = employee.EmployeeId;
+
+                db.Employees.DeleteOnSubmit(deleteEmployee);
+                db.SubmitChanges(); 
+            }
+
+        }
+
+
+internal static void AddAnimal(Animal animal)
         {
             db.Animals.InsertOnSubmit(animal);
 
