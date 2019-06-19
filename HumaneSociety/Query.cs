@@ -172,13 +172,13 @@ namespace HumaneSociety
         internal static void AddAnimal(Animal animal)
         {
             db.Animals.InsertOnSubmit(animal);
-
             db.SubmitChanges();
         }
 
         internal static Animal GetAnimalByID(int id)
         {
-            throw new NotImplementedException();
+            Animal animal = db.Animals.Where(a => a.AnimalId == id).FirstOrDefault();
+            return animal;
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
