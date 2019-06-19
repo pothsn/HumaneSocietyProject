@@ -250,18 +250,48 @@ namespace HumaneSociety
 internal static void AddAnimal(Animal animal)
         {
             db.Animals.InsertOnSubmit(animal);
-
             db.SubmitChanges();
         }
 
         internal static Animal GetAnimalByID(int id)
         {
-            throw new NotImplementedException();
+            Animal animal = db.Animals.Where(a => a.AnimalId == id).FirstOrDefault();
+            return animal;
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
-        {            
-            throw new NotImplementedException();
+        {
+            //query for the animal
+            Animal animal = db.Animals.Where(a => a.AnimalId == animalId).FirstOrDefault();
+            foreach (KeyValuePair<int, string> update in updates)
+            {
+                switch (update.Key)
+                {
+                    case 1:
+                        animal.CategoryId = int.Parse(update.Value);
+                        break;
+                    case 2:
+                        animal.Name = update.Value;
+                        break;
+                    case 3:
+                        animal.Age = int.Parse(update.Value);
+                        break;
+                    case 4:
+                        animal.Demeanor = update.Value;
+                        break;
+                    case 5:
+                        animal.KidFriendly = bool.Parse(update.Value);
+                        break;
+                    case 6:
+                        animal.Weight = int.Parse(update.Value);
+                        break;
+                    case 7:
+                        animal.AnimalId = int.Parse(update.Value);
+                        break;
+                }
+            }
+            db.SubmitChanges();
+           
         }
 
         internal static void RemoveAnimal(Animal animal)
@@ -270,31 +300,44 @@ internal static void AddAnimal(Animal animal)
         }
         
         // TODO: Animal Multi-Trait Search
-        internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
+        internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> searchParameters) // parameter(s)?
         {
-            throw new NotImplementedException();
+            var animals = db.Animals;
+
+            foreach (KeyValuePair<int, string> updates in searchParameters)
+            {
+                //updates.Key;
+                    //INCOMPLETE. MIKE H SAYS THIS IS THE HARDEST ONE. LEAVE FOR LAST.
+            }
+
+            return animals;
         }
          
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
-            throw new NotImplementedException();
+            Category category = db.Categories.Where(c => c.Name == categoryName).FirstOrDefault();
+            return category.CategoryId;
         }
         
         internal static Room GetRoom(int animalId)
         {
-            throw new NotImplementedException();
+            Room room = db.Rooms.Where(a => a.AnimalId == animalId).FirstOrDefault();
+            return room;
         }
-        
+            
         internal static int GetDietPlanId(string dietPlanName)
         {
-            throw new NotImplementedException();
+            DietPlan dietPlans = db.DietPlans.Where(d => d.Name == dietPlanName).FirstOrDefault();
+            return dietPlans.DietPlanId;
         }
 
         // TODO: Adoption CRUD Operations
         internal static void Adopt(Animal animal, Client client)
         {
-            throw new NotImplementedException();
+
+            var adoption = db.Adoptions.Select(c => c.Client.ClientId).Select(Animal => animal.AnimalId);
+
         }
 
         internal static IQueryable<Adoption> GetPendingAdoptions()
@@ -304,6 +347,7 @@ internal static void AddAnimal(Animal animal)
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
         {
+            var adopted = db.Adoptions.Select(a => a.ApprovalStatus);
             throw new NotImplementedException();
         }
 

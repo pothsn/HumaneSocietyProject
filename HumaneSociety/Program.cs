@@ -10,6 +10,12 @@ namespace HumaneSociety
     {
         static void Main(string[] args)
         {
+            Dictionary<int, string> updates = new Dictionary<int, string>();
+            
+            /*updates.Add(2, "Glimore");
+            Query.UpdateAnimal(1, updates);
+            Console.ReadLine();*/
+            
 
 
 
