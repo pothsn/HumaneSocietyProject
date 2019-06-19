@@ -198,7 +198,7 @@ namespace HumaneSociety
 
             foreach (KeyValuePair<int, string> updates in searchParameters)
             {
-                updates.Key
+                //updates.Key;
                     //INCOMPLETE. MIKE H SAYS THIS IS THE HARDEST ONE. LEAVE FOR LAST.
             }
 
@@ -217,7 +217,7 @@ namespace HumaneSociety
             Room room = db.Rooms.Where(a => a.AnimalId == animalId).FirstOrDefault();
             return room;
         }
-        
+            
         internal static int GetDietPlanId(string dietPlanName)
         {
             DietPlan dietPlans = db.DietPlans.Where(d => d.Name == dietPlanName).FirstOrDefault();
@@ -227,7 +227,14 @@ namespace HumaneSociety
         // TODO: Adoption CRUD Operations
         internal static void Adopt(Animal animal, Client client)
         {
-            throw new NotImplementedException();
+            var animals = db.Animals.Select(a => a.AdoptionStatus);
+            var adoption = db.Adoptions.Select(ad => ad.ApprovalStatus);
+            var clientele = db.Clients.Select(c => c.ClientId);
+
+
+
+              
+                
         }
 
         internal static IQueryable<Adoption> GetPendingAdoptions()
@@ -237,6 +244,7 @@ namespace HumaneSociety
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
         {
+            var adopted = db.Adoptions.Select(a => a.ApprovalStatus);
             throw new NotImplementedException();
         }
 
