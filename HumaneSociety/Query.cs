@@ -167,6 +167,7 @@ namespace HumaneSociety
         //// TODO Items: ////
 
         // TODO: Allow any of the CRUD operations to occur here --------------------------------------------------------------------------
+
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
             switch (crudOperation)
@@ -216,7 +217,6 @@ namespace HumaneSociety
                 Console.WriteLine("Email: " + readEmployee.Email);
             }
         }
-
         internal static void UpdateNewEmployeeQueries(Employee employee)
         {
             Employee updateEmployee = db.Employees.Where(e => e.FirstName == employee.FirstName && e.LastName == employee.LastName && e.UserName == employee.UserName && e.Password == employee.Password && e.Email == employee.Email).FirstOrDefault();
@@ -233,7 +233,6 @@ namespace HumaneSociety
                 db.SubmitChanges();
             }
         }
-
         internal static void DeleteNewEmployeeQueries(Employee employee)
         {
             bool deleteEmployee = db.Employees.Where(e => e.FirstName == employee.FirstName && e.LastName == employee.LastName && e.UserName == employee.UserName && e.Email == employee.Email).Any();
@@ -244,10 +243,11 @@ namespace HumaneSociety
                 db.Employees.DeleteOnSubmit(employee);
                 db.SubmitChanges(); 
             }
+
         }
-        
-        // TODO: Animal CRUD Operations
-        internal static void AddAnimal(Animal animal)
+
+
+internal static void AddAnimal(Animal animal)
         {
             db.Animals.InsertOnSubmit(animal);
             db.SubmitChanges();
@@ -261,6 +261,7 @@ namespace HumaneSociety
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
         {
+            //query for the animal
             Animal animal = db.Animals.Where(a => a.AnimalId == animalId).FirstOrDefault();
             foreach (KeyValuePair<int, string> update in updates)
             {
@@ -282,14 +283,14 @@ namespace HumaneSociety
                         animal.KidFriendly = bool.Parse(update.Value);
                         break;
                     case 6:
-                        animal.PetFriendly = bool.Parse(update.Value);
+                        animal.Weight = int.Parse(update.Value);
                         break;
                     case 7:
-                        animal.Weight = int.Parse(update.Value);
+                        animal.AnimalId = int.Parse(update.Value);
                         break;
                 }
             }
-            db.SubmitChanges();         
+            db.SubmitChanges();
         }
 
         internal static void RemoveAnimal(Animal animal)
@@ -299,38 +300,15 @@ namespace HumaneSociety
         }
         
         // TODO: Animal Multi-Trait Search
-        internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates)
+        internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> searchParameters) // parameter(s)?
         {
-            IQueryable<Animal> animals = db.Animals;
-            
+            var animals = db.Animals;
 
-            foreach (KeyValuePair<int, string> update in updates)
+            foreach (KeyValuePair<int, string> updates in searchParameters)
             {
-                switch (update.Key)
-                {
-                    case 1:                      
-                        animals = animals.Where(a => a.CategoryId == int.Parse(update.Value));
-                        break;
-                    case 2:
-                        animals = animals.Where(a => a.Name == update.Value);                        
-                        break;
-                    case 3:
-                        animals = animals.Where(a => a.Age == int.Parse(update.Value));                        
-                        break;
-                    case 4:
-                        animals = animals.Where(a => a.Demeanor == update.Value);                        
-                        break;
-                    case 5:
-                        animals = animals.Where(a => a.KidFriendly == bool.Parse(update.Value));
-                        break;
-                    case 6:
-                        animals = animals.Where(a => a.PetFriendly == bool.Parse(update.Value));
-                        break;
-                    case 7:
-                        animals = animals.Where(a => a.Weight == int.Parse(update.Value));
-                        break;
-                }
+                    //INCOMPLETE. MIKE H SAYS THIS IS THE HARDEST ONE. LEAVE FOR LAST.
             }
+
             return animals;
         }
          
@@ -369,15 +347,18 @@ namespace HumaneSociety
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
         {
-            var adopted = db.Adoptions.Select(a => a.ApprovalStatus);
+
+            var adopted = db.Adoptions.Where(i => i.ApprovalStatus == adoption.ApprovalStatus);
+            var isAdopted = db.Adoptions.Where(a => a.ApprovalStatus == isAdopted);
+                
             db.SubmitChanges();
-            throw new NotImplementedException();
         }
 
         internal static void RemoveAdoption(int animalId, int clientId)
         {
+            Adoption adoption = db.Adoptions.Where(a => a.AnimalId == animalId && a.ClientId == clientId).FirstOrDefault();
+            db.Adoptions.DeleteOnSubmit(adoption);
             db.SubmitChanges();
-            throw new NotImplementedException();
         }
 
         // TODO: Shots Stuff-------------------------------------------------------------------------------
