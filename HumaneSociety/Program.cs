@@ -11,27 +11,46 @@ namespace HumaneSociety
         static void Main(string[] args)
         {
             Dictionary<int, string> updates = new Dictionary<int, string>();
-            
+
             /*updates.Add(2, "Glimore");
             Query.UpdateAnimal(1, updates);
             Console.ReadLine();*/
-            
-
 
 
             //PointOfEntry.Run();
 
-            Employee employee = new Employee() {EmployeeId= 1, FirstName="jim", LastName="xshf", UserName = "SBrunelli", Password="OnePunchMan1!", EmployeeNumber= 1, Email= "SBrunelli@gmail.com" };
-            string input = "create";
 
+<<<<<<< HEAD
             //Query.AddAnimal(new Animal());
             //Query.RunEmployeeQueries(employee, input);
+=======
+            //Employee employee = new Employee() {FirstName="Mike", LastName="Lee", UserName = "ME1990", Password="werewre", EmployeeNumber= 123, Email= "asfs@gmail.com" };
+            //string input = "create";
+            //Employee employee1 = new Employee() { FirstName = "steve", LastName = "Van", UserName = "stv", Password = "dsfs", EmployeeNumber = 34, Email = "stve@gmail.com" };
+            //string input1 = "create";
+            ////Query.AddAnimal(new Animal());
+            //Query.RunEmployeeQueries(employee, input);
+            //Query.RunEmployeeQueries(employee1, input1);
+
+>>>>>>> 1fdedef2ba8bf8e7a8d4eddb61e2fbc4dc9c2c04
             //Query.CreateNewEmployeeQueries(employee);
             //Query.ReadNewEmployeeQueries(employee);
             //Query.UpdateNewEmployeeQueries(employee);
             //Query.DeleteNewEmployeeQueries(employee);
+<<<<<<< HEAD
             //var thing = Query.GetPendingAdoptions();
             //Console.WriteLine(thing.ToList().Count);
+=======
+
+            DateTime test = new DateTime(2019, 6, 20);
+            // test.
+
+            Animal animal = new Animal() { AnimalId = 1, Name = "Tom", Weight = 20, Age = 2 };
+            // AnimalShot animalShot = new AnimalShot() { AnimalId = 2, ShotId = 323, DateReceived = test};
+            IQueryable<AnimalShot> results = Query.GetShots(animal);
+
+
+>>>>>>> 1fdedef2ba8bf8e7a8d4eddb61e2fbc4dc9c2c04
 
         }
     }
