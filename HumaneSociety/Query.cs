@@ -191,7 +191,7 @@ namespace HumaneSociety
         }
         internal static void CreateNewEmployeeQueries(Employee employee)
         {
-            bool employeeExists = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Any();
+            bool employeeExists = db.Employees.Where(e => e.FirstName == employee.FirstName && e.LastName == employee.LastName && e.UserName == employee.UserName && e.Email == employee.Email).Any();
 
             if (!employeeExists)
             {
@@ -223,24 +223,23 @@ namespace HumaneSociety
             // if the new employee isn't found in the Db, create and insert it
             if (updateEmployee != null)
             {
-                updateEmployee.FirstName = employee.FirstName;
-                updateEmployee.LastName = employee.LastName;
-                updateEmployee.UserName = employee.UserName;
-                updateEmployee.Password = employee.Password;
-                updateEmployee.Email = employee.Email;
+                updateEmployee.FirstName = "Shee";
+                updateEmployee.LastName = "Chang";
+                updateEmployee.UserName = "syc";
+                updateEmployee.Password = "1234";
+                updateEmployee.Email = "sheechang@gmail.com";
 
-                db.Employees.InsertOnSubmit(employee);
                 db.SubmitChanges();
             }
         }
         internal static void DeleteNewEmployeeQueries(Employee employee)
         {
-            Employee deleteEmployee = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
-            if (deleteEmployee != null)
+            bool deleteEmployee = db.Employees.Where(e => e.FirstName == employee.FirstName && e.LastName == employee.LastName && e.UserName == employee.UserName && e.Email == employee.Email).Any();
+            if (deleteEmployee)
             {
-                deleteEmployee.EmployeeId = employee.EmployeeId;
+                //deleteEmployee.EmployeeId = employee.EmployeeId;
 
-                db.Employees.DeleteOnSubmit(deleteEmployee);
+                db.Employees.DeleteOnSubmit(employee);
                 db.SubmitChanges(); 
             }
 
@@ -356,15 +355,26 @@ internal static void AddAnimal(Animal animal)
             throw new NotImplementedException();
         }
 
-        // TODO: Shots Stuff
+        // TODO: Shots Stuff-------------------------------------------------------------------------------
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-            throw new NotImplementedException();
+            IQueryable<AnimalShot> allAnimalShots = db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId);  //Why can't do ToList();
+            return allAnimalShots;
+
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
-            throw new NotImplementedException();
+            var animalShotUpdate = db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId);
+            var animalShotUpdate1 = db.AnimalShots.Select(a => a.ShotId).FirstOrDefault();
+            var updateShot = db.Shots.Select(s => s.ShotId);
+            var updateShot1 = db.Shots.Select(s => s.Name == shotName);
+
+            //if (updateShot1 != null)
+            //{
+            //    db.Shots.InsertOnSubmit(updateShot1);
+            //    db.SubmitChanges();
+            //}
         }
     }
 }
