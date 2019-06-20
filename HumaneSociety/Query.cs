@@ -296,7 +296,8 @@ internal static void AddAnimal(Animal animal)
 
         internal static void RemoveAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals.DeleteOnSubmit(animal);
+            db.SubmitChanges();
         }
         
         // TODO: Animal Multi-Trait Search
@@ -335,9 +336,7 @@ internal static void AddAnimal(Animal animal)
         // TODO: Adoption CRUD Operations
         internal static void Adopt(Animal animal, Client client)
         {
-
             var adoption = db.Adoptions.Select(c => c.Client.ClientId).Select(Animal => animal.AnimalId);
-
         }
 
         internal static IQueryable<Adoption> GetPendingAdoptions()
