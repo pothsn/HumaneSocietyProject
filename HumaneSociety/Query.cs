@@ -343,8 +343,6 @@ internal static void AddAnimal(Animal animal)
         {
             Adoption adoption = new Adoption();
             var results = db.Adoptions.Where(a => a.ApprovalStatus == "pending");
-            //Console.WriteLine("There are currently " + results.Count() + " pending adoptions");
-            //Console.ReadLine();
             return results;
         }
 
@@ -364,14 +362,8 @@ internal static void AddAnimal(Animal animal)
         // TODO: Shots Stuff-------------------------------------------------------------------------------
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-<<<<<<< HEAD
-            //db.AnimalShots.
-            throw new NotImplementedException();
-=======
             IQueryable<AnimalShot> animalShots = db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId);  //Why can't do ToList() b/c not using List<>; it's IQueryable;
             return animalShots;
-
->>>>>>> 1fdedef2ba8bf8e7a8d4eddb61e2fbc4dc9c2c04
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
