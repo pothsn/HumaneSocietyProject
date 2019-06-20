@@ -345,13 +345,20 @@ internal static void AddAnimal(Animal animal)
             return results;
         }
 
-        internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
+        internal static void UpdateAdoption(bool approvalStatus, Adoption adoption)
         {
-
-            var adopted = db.Adoptions.Where(i => i.ApprovalStatus == adoption.ApprovalStatus);
-            var isAdopted = db.Adoptions.Where(a => a.ApprovalStatus == isAdopted);
-                
-            db.SubmitChanges();
+            var thisAdoption = db.Adoptions.Where(a => a.AnimalId == adoption.AnimalId && a.ClientId == adoption.ClientId).Single();
+           
+                if(approvalStatus == true)
+                {
+                    adoption.ApprovalStatus = "approved";
+                    db.SubmitChanges();
+                }
+                else 
+                {
+                    adoption.ApprovalStatus = "pending";
+                    db.SubmitChanges();
+                }
         }
 
         internal static void RemoveAdoption(int animalId, int clientId)
