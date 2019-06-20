@@ -352,7 +352,8 @@ internal static void AddAnimal(Animal animal)
                 if(approvalStatus == true)
                 {
                     adoption.ApprovalStatus = "approved";
-                    db.SubmitChanges();
+                    db.Adoptions.InsertOnSubmit(adoption);
+                    //db.SubmitChanges();
                 }
                 else 
                 {
