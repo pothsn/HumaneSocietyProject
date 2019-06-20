@@ -64,3 +64,10 @@ INSERT INTO Clients VALUES('Ryan', 'Schultz', 'RSchultz', 'Gilmore1!', 2, 'RSchu
 INSERT INTO Clients VALUES('Jacob', 'Holmes', 'JHolmes', 'MayFever', 3, 'JHolmes@gmail.com')
 INSERT INTO Clients VALUES('Karissa', 'Koss', 'KKoss', 'DerptyDer', 4, 'KKoss@gmail.com')
 INSERT INTO Clients VALUES('Alyssa', 'Brunelli', 'ABrunelli', 'IloveBlue4', 5, 'ABrunelli@gmail.com')
+
+Shots 5
+INSERT INTO Shots VALUES('Parvovirus')
+INSERT INTO Shots VALUES ('Distemper')
+INSERT INTO Shots VALUES ('Adenovirus ')
+INSERT INTO Shots VALUES ('Rabies')
+INSERT INTO Shots VALUES ('Parainfluenza')

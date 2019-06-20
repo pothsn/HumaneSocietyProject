@@ -173,7 +173,7 @@ namespace HumaneSociety
             if (UserInterface.GetBitData("Would you like to Update shots?"))
             {
                 string shotToAdd = UserInterface.GetStringData("the animal received", "the shot");
-                //Query.UpdateShot(shotToAdd, animal);
+                Query.UpdateShot(shotToAdd, animal);
             }
         }
 
