@@ -189,6 +189,7 @@ namespace HumaneSociety
                     break;
             }
         }
+
         internal static void CreateNewEmployeeQueries(Employee employee)
         {
             bool employeeExists = db.Employees.Where(e => e.FirstName == employee.FirstName && e.LastName == employee.LastName && e.UserName == employee.UserName && e.Email == employee.Email).Any();
@@ -290,12 +291,12 @@ internal static void AddAnimal(Animal animal)
                 }
             }
             db.SubmitChanges();
-           
         }
 
         internal static void RemoveAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals.DeleteOnSubmit(animal);
+            db.SubmitChanges();
         }
         
         // TODO: Animal Multi-Trait Search
@@ -334,9 +335,7 @@ internal static void AddAnimal(Animal animal)
         // TODO: Adoption CRUD Operations
         internal static void Adopt(Animal animal, Client client)
         {
-
             var adoption = db.Adoptions.Select(c => c.Client.ClientId).Select(Animal => animal.AnimalId);
-
         }
 
         internal static IQueryable<Adoption> GetPendingAdoptions()

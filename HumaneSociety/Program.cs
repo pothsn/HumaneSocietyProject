@@ -17,8 +17,6 @@ namespace HumaneSociety
             Console.ReadLine();*/
 
 
-
-
             //PointOfEntry.Run();
 
 
@@ -29,13 +27,16 @@ namespace HumaneSociety
             ////Query.AddAnimal(new Animal());
             //Query.RunEmployeeQueries(employee, input);
             //Query.RunEmployeeQueries(employee1, input1);
+
             //Query.CreateNewEmployeeQueries(employee);
             //Query.ReadNewEmployeeQueries(employee);
             //Query.UpdateNewEmployeeQueries(employee);
             //Query.DeleteNewEmployeeQueries(employee);
 
+
             Animal animal = new Animal() { Name = "Tom" };
             Query.GetShots(animal);
+
 
 
         }
