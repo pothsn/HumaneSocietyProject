@@ -336,28 +336,36 @@ internal static void AddAnimal(Animal animal)
         // TODO: Adoption CRUD Operations
         internal static void Adopt(Animal animal, Client client)
         {
-            var adoption = db.Adoptions.Select(c => c.Client.ClientId).Select(Animal => animal.AnimalId);
+            db.Adoptions.InsertOnSubmit(new Adoption() { AnimalId = animal.AnimalId, ClientId = client.ClientId, AdoptionFee = 75 });
+            db.SubmitChanges();
         }
 
         internal static IQueryable<Adoption> GetPendingAdoptions()
         {
-            throw new NotImplementedException();
+            Adoption adoption = new Adoption();
+            var results = db.Adoptions.Where(a => a.ApprovalStatus == "pending");
+            //Console.WriteLine("There are currently " + results.Count() + " pending adoptions");
+            //Console.ReadLine();
+            return results;
         }
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
         {
             var adopted = db.Adoptions.Select(a => a.ApprovalStatus);
+            db.SubmitChanges();
             throw new NotImplementedException();
         }
 
         internal static void RemoveAdoption(int animalId, int clientId)
         {
+            db.SubmitChanges();
             throw new NotImplementedException();
         }
 
         // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
+            //db.AnimalShots.
             throw new NotImplementedException();
         }
 

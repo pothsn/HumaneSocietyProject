@@ -25,12 +25,13 @@ namespace HumaneSociety
             string input = "create";
 
             //Query.AddAnimal(new Animal());
-            Query.RunEmployeeQueries(employee, input);
+            //Query.RunEmployeeQueries(employee, input);
             //Query.CreateNewEmployeeQueries(employee);
             //Query.ReadNewEmployeeQueries(employee);
             //Query.UpdateNewEmployeeQueries(employee);
             //Query.DeleteNewEmployeeQueries(employee);
-
+            //var thing = Query.GetPendingAdoptions();
+            //Console.WriteLine(thing.ToList().Count);
 
         }
     }
