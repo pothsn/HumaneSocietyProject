@@ -379,16 +379,13 @@ internal static void AddAnimal(Animal animal)
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
-            var animalShotUpdate = db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId);
-            var animalShotUpdate1 = db.AnimalShots.Select(a => a.ShotId).FirstOrDefault();
-            var updateShot = db.Shots.Select(s => s.ShotId);
-            var updateShot1 = db.Shots.Select(s => s.Name == shotName);
-
-            //if (updateShot1 != null)
-            //{
-            //    db.Shots.InsertOnSubmit(updateShot1);
-            //    db.SubmitChanges();
-            //}
+            AnimalShot newAnimalShot = new AnimalShot();
+            newAnimalShot.AnimalId = animal.AnimalId;
+            var shotGiven = db.Shots.Where(s => s.Name == shotName).FirstOrDefault();
+            shotGiven.ShotId = newAnimalShot.ShotId;
+            newAnimalShot.DateReceived = DateTime.Today;
+            db.AnimalShots.InsertOnSubmit(newAnimalShot);
+            db.SubmitChanges();    
         }
     }
 }
