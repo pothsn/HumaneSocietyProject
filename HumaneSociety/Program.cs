@@ -33,9 +33,12 @@ namespace HumaneSociety
             //Query.UpdateNewEmployeeQueries(employee);
             //Query.DeleteNewEmployeeQueries(employee);
 
+            DateTime test = new DateTime(2019, 6, 20);
+            // test.
 
-            Animal animal = new Animal() { Name = "Tom" };
-            Query.GetShots(animal);
+            Animal animal = new Animal() { AnimalId = 1, Name = "Tom", Weight = 20, Age = 2 };
+            // AnimalShot animalShot = new AnimalShot() { AnimalId = 2, ShotId = 323, DateReceived = test};
+            IQueryable<AnimalShot> results = Query.GetShots(animal);
 
 
 

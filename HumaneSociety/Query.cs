@@ -357,8 +357,8 @@ internal static void AddAnimal(Animal animal)
         // TODO: Shots Stuff-------------------------------------------------------------------------------
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-            IQueryable<AnimalShot> allAnimalShots = db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId);  //Why can't do ToList();
-            return allAnimalShots;
+            IQueryable<AnimalShot> animalShots = db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId);  //Why can't do ToList() b/c not using List<>; it's IQueryable;
+            return animalShots;
 
         }
 
