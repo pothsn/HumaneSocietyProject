@@ -189,6 +189,7 @@ namespace HumaneSociety
                     break;
             }
         }
+
         internal static void CreateNewEmployeeQueries(Employee employee)
         {
             bool employeeExists = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Any();
@@ -291,7 +292,6 @@ internal static void AddAnimal(Animal animal)
                 }
             }
             db.SubmitChanges();
-           
         }
 
         internal static void RemoveAnimal(Animal animal)
