@@ -352,13 +352,15 @@ internal static void AddAnimal(Animal animal)
                 if(approvalStatus == true)
                 {
                     adoption.ApprovalStatus = "approved";
-                    db.SubmitChanges();
+
                 }
                 else 
                 {
                     adoption.ApprovalStatus = "pending";
-                    db.SubmitChanges();
+                    //db.SubmitChanges();
                 }
+            db.Adoptions.InsertOnSubmit(adoption);
+            //db.SubmitChanges();
         }
 
         internal static void RemoveAdoption(int animalId, int clientId)
