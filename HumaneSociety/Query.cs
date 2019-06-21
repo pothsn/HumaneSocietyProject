@@ -166,7 +166,7 @@ namespace HumaneSociety
 
         //// TODO Items: ////
 
-        // TODO: Allow any of the CRUD operations to occur here --------------------------------------------------------------------------
+        // TODO: Allow any of the CRUD operations to occur here 
 
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
@@ -247,7 +247,7 @@ namespace HumaneSociety
         }
 
 
-internal static void AddAnimal(Animal animal)
+        internal static void AddAnimal(Animal animal)
         {
             db.Animals.InsertOnSubmit(animal);
             db.SubmitChanges();
@@ -298,20 +298,43 @@ internal static void AddAnimal(Animal animal)
             db.Animals.DeleteOnSubmit(animal);
             db.SubmitChanges();
         }
-        
+
         // TODO: Animal Multi-Trait Search
-        internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> searchParameters) // parameter(s)?
+        internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates)
         {
-            var animals = db.Animals;
+            IQueryable<Animal> animals = db.Animals;
 
-            foreach (KeyValuePair<int, string> updates in searchParameters)
+
+            foreach (KeyValuePair<int, string> update in updates)
             {
-                    //INCOMPLETE. MIKE H SAYS THIS IS THE HARDEST ONE. LEAVE FOR LAST.
+                switch (update.Key)
+                {
+                    case 1:
+                        animals = animals.Where(a => a.CategoryId == int.Parse(update.Value));
+                        break;
+                    case 2:
+                        animals = animals.Where(a => a.Name == update.Value);
+                        break;
+                    case 3:
+                        animals = animals.Where(a => a.Age == int.Parse(update.Value));
+                        break;
+                    case 4:
+                        animals = animals.Where(a => a.Demeanor == update.Value);
+                        break;
+                    case 5:
+                        animals = animals.Where(a => a.KidFriendly == bool.Parse(update.Value));
+                        break;
+                    case 6:
+                        animals = animals.Where(a => a.PetFriendly == bool.Parse(update.Value));
+                        break;
+                    case 7:
+                        animals = animals.Where(a => a.Weight == int.Parse(update.Value));
+                        break;
+                }
             }
-
             return animals;
         }
-         
+
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
@@ -373,7 +396,7 @@ internal static void AddAnimal(Animal animal)
         // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-            IQueryable<AnimalShot> animalShots = db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId);  
+            IQueryable<AnimalShot> animalShots = db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId);
             return animalShots;
         }
 
@@ -388,7 +411,7 @@ internal static void AddAnimal(Animal animal)
             db.AnimalShots.Where(c => c.AnimalId == shotGiven.ShotId);
 
             db.AnimalShots.InsertOnSubmit(newAnimalShot);
-            db.SubmitChanges();    
+            db.SubmitChanges();
         }
     }
 }
