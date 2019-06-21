@@ -368,10 +368,10 @@ internal static void AddAnimal(Animal animal)
             db.SubmitChanges();
         }
 
-        // TODO: Shots Stuff-------------------------------------------------------------------------------
+        // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-            IQueryable<AnimalShot> animalShots = db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId);  //Why can't do ToList() b/c not using List<>; it's IQueryable;
+            IQueryable<AnimalShot> animalShots = db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId);  
             return animalShots;
         }
 
@@ -379,9 +379,12 @@ internal static void AddAnimal(Animal animal)
         {
             AnimalShot newAnimalShot = new AnimalShot();
             newAnimalShot.AnimalId = animal.AnimalId;
-            var shotGiven = db.Shots.Where(s => s.Name == shotName).FirstOrDefault();
-            shotGiven.ShotId = newAnimalShot.ShotId;
+            var shotGiven = db.Shots.Where(s => s.Name == shotName).Single();
+            newAnimalShot.ShotId = shotGiven.ShotId;
             newAnimalShot.DateReceived = DateTime.Today;
+
+            db.AnimalShots.Where(c => c.AnimalId == shotGiven.ShotId);
+
             db.AnimalShots.InsertOnSubmit(newAnimalShot);
             db.SubmitChanges();    
         }

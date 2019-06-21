@@ -12,7 +12,7 @@ namespace HumaneSociety
         {
 
             //PointOfEntry.Run();
-            Animal animal = Query.GetAnimalByID(1);         
+            Animal animal = Query.GetAnimalByID(2);         
            
             Query.UpdateShot("Parvovirus", animal);
 
